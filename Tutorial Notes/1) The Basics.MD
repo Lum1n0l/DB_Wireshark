@@ -16,3 +16,4 @@ Differentialed Services Field/Codepoint - Data related to QoS enabled some traff
 When an image is requested across the wire, when the server serves that file (HTTP 200 OK - png) I can export and download that image by right clicking the Portable Network Graphics subheader and selecting 'Export Packet Bytes'.
     This data may be exported as a .bin file, and its file extension may need changing in order for the data to be readable. 
 
+
