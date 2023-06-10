@@ -124,3 +124,68 @@ Layer 1 (Physical):
     Example:
         - When using an RJ45 Cable, these adhere to a standard so that we know we can plug that ethernet cable into any device that supports RJ45 and it will work as expected.
         - The physical spec, i.e voltage and cable specification of that RJ45 will differ to say a WAN Connector. But again will be standardized. These specifications and standards are set out at Layer 1 of the OSI Model.
+
+
+
+
+
+Host Communication: 
+
+    - When communication takes place between hosts, the data that's going to be sent across the network must undergo a process of conversion at both the sending and receiving end. This is known as encapsulation and de-encapsulation. 
+    - Each Layer of the OSI Model only communicates with the corrosponding layer at the other end of the conversation (Sender Layer 7 to Receiver Layer 7) etc. 
+    
+    Example (Encapsulation): 
+        - We access Cisco.com on a PC to input User Data
+        - This data must be encapsulated at all layers of the OSI Model, before being sent. 
+        - So at Layer 7, the data is encapsulated and is prepended with the Layer 7 Header.
+        - The same at Layer 6, and 5, and so on...
+        - All the way until we get to Layer 2, where it is encapsulated a final time and a FCS (Frame check sequence) is added to the data to ensure it isn't corrupted in transit. 
+        - The data is the sent across the physical wire at Layer 1 as bits (zeros and ones), before being received by Layer 1 at the destination. 
+
+    Data Terms:
+        Layer 1: Bits
+        Layer 2: Frames
+        Layer 3: Packets
+        Layer 4: Frames
+
+    Example (De-encapsulation):
+        - Data is received in bits at Layer 1 of the receiving device by its NIC (Network Interface Card)
+        - The layer 2 header is read, and then stripped and passed along to Layer 3. 
+        - Layer 3 header is read, stripped and then passed to Layer 4. 
+        - Continues until only the original data remains, without headers. This original data is then processed as originally intended, be that a web server who receives your web request as a HTTP-Get request. 
+
+
+The OSI Model in its purest form contains the 7 layers above, it was originally intended with CLNS (Connectionless-Mode Network Service) or CLNP (Connectionless-mode Network Protocol) in mind.
+
+TCP/IP Had its own model, which consisted of:
+
+    - Layer 4 - Application     (Grouping of Application, Presentation and Session layers from OSI)
+    - Layer 3 - Transport       (Equivilent to Network layer of OSI Model)
+    - Layer 2 - Internet
+    - Layer 1 - Network Access  (Grouping of Data Link & Physical Layers of OSI Model)
+
+In Practice, we often use a 'Hybrid' model. Which consists of:
+
+    - Layer 5 - Application     (Grouping of Application, Presentation and Session layers from OSI - As in TCP/IP Model)
+    - Layer 4 - Transport       (As in OSI Model)
+    - Layer 3 - Network         (As in OSI Model)
+    - Layer 2 - Data Link       (As in OSI Model)
+    - Layer 1 - Physical        (As in OSI Model)
+
+Type Number
+
+        - When bits are received by the NIC of the receiving device, it will read the Layer 2 frame (The datalink layer), In that frame (If its using Ethernet 2 - the most common) it will contain a field called the Type Number
+        - This type field that specifies the higher layer protocals to be used. The NIC will read this and can then determine if the traffic is IPv4 or IPv6 for example, and informs the NIC which process to send the traffic to at the higher layers. 
+        - Consider if a receiver receives 10 bits of data, some for one protocol and some for another, it will need this type field to know which is for which. 
+
+Protocol Number
+
+    - At layer 3, the protocol number informs the device which protocol is running at Layer 4, so it knows where to send it too. Most common being, TCP & UDP. 
+
+Port Number
+
+    - At Layer 4, the port number provided tells the application layer above which application this data is intended for & being used. (Could be Telnet, TFTP, HTTP etc).
+        Usually:
+            - Telnet    - Port 23
+            - TFTP      - Port 69
+            - HTTP      - Port 80
